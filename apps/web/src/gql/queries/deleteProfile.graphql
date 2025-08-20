@@ -1,0 +1,6 @@
+mutation DeleteProfile($deletedId: Long) {
+  deleteProfile(deletedId: $deletedId) {
+    profileId
+    profileName
+  }
+}

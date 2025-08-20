@@ -1,0 +1,15 @@
+mutation CreateProfile($input: CreateProfileInput!) {
+  createProfile(input: $input) {
+    profileId
+    profileName
+    profileColor
+    occupation
+    purposeOfLoan
+    annualIncome
+    desiredLoanAmount
+    totalLoanUsageAmount
+    creditGradeStatus
+    loanProductUsageCount
+    profileSeq
+  }
+}

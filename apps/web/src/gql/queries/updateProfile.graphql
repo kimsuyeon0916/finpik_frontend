@@ -1,0 +1,15 @@
+mutation UpdateProfile($input: UpdateProfileInput!) {
+  updateProfile(input: $input) {
+    profileId
+    profileName
+    profileColor
+    occupation
+    purposeOfLoan
+    annualIncome
+    desiredLoanAmount
+    totalLoanUsageAmount
+    creditGradeStatus
+    loanProductUsageCount
+    profileSeq
+  }
+}

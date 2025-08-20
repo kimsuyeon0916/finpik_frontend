@@ -1,0 +1,255 @@
+type AuthResult {
+  accessToken: String!
+}
+
+enum BusinessType {
+  ETC
+  FRANCHISE
+  MEDICAL
+  ONLINE_SHOP
+  RESTAURANT
+  RETAIL
+}
+
+input CreateProfileInput {
+  annualIncome: Int
+  businessStartDate: Date
+  businessType: BusinessType
+  creditGradeStatus: CreditGradeStatus
+  creditScore: Int
+  desiredLoanAmount: Int!
+  employmentDate: Date
+  employmentForm: EmploymentForm
+  loanProductUsageCount: Int!
+  loanProductUsageStatus: LoanProductUsageStatus!
+  occupation: Occupation!
+  profileColor: ProfileColor!
+  profileName: String!
+  purposeOfLoan: PurposeOfLoan!
+  totalLoanUsageAmount: Int!
+}
+
+enum CreditGradeStatus {
+  EXCELLENT
+  FAIR
+  GOOD
+  POOR
+  VERY_POOR
+}
+
+"""An RFC-3339 compliant Full Date Scalar"""
+scalar Date
+
+"""A slightly refined version of RFC-3339 compliant DateTime Scalar"""
+scalar DateTime
+
+enum EmploymentForm {
+  CONTRACT
+  FULL_TIME
+  OTHER
+}
+
+enum Gender {
+  FEMALE
+  MALE
+}
+
+enum LoanProductBadge {
+  """프로필의 조건과 제일 잘 맞아요"""
+  BEST_PROFILE_MATCH
+
+  """최대한도가 가장 높아요"""
+  HIGHEST_MAX_LOAN_AMOUNT_LIMIT
+
+  """즉시 입금 가능해요"""
+  INSTANT_DEPOSIT
+
+  """최저금리가 제일 낮은 상품"""
+  LOWEST_MIN_INTEREST_RATE
+}
+
+type LoanProductDescriptionResult {
+  interestRateGuide: String
+  loanPrerequisite: String
+  loanTargetGuide: String
+  maxLoanLimitGuide: String
+  notesOnLoan: String
+  preLoanChecklist: String!
+  repaymentFeeGuide: String
+  repaymentPeriodGuide: String
+}
+
+type LoanProductResult {
+  bankName: String!
+  descriptionResult: LoanProductDescriptionResult!
+  loanProductBadgeList: [LoanProductBadge]
+  maxInterestRate: Float
+  maxLoanLimitAmount: Int
+  minInterestRate: Float
+  productName: String!
+  repaymentPeriod: Int
+  repaymentPeriodUnit: RepaymentPeriodUnit
+  url: String!
+}
+
+enum LoanProductUsageStatus {
+  NOT_USING
+  USING
+}
+
+"""
+24-hour clock time value string in the format `hh:mm:ss` or `hh:mm:ss.sss`.
+"""
+scalar LocalTime
+
+"""A 64-bit signed integer"""
+scalar Long
+
+type Mutation {
+  createProfile(input: CreateProfileInput!): ProfileResult!
+  deleteProfile(deletedId: Long): [ProfileResult]!
+  refresh: AuthResult!
+  signUp(input: SignUpInput!): SignUpResult!
+  updateLoanProductBadgeAndPrerequisite(inputList: [UpdateLoanProductAndPrerequisiteInput]): [LoanProductResult]
+  updateProfile(input: UpdateProfileInput!): ProfileResult!
+  updateProfileColor(input: UpdateProfileColorInput!): ProfileResult!
+  updateProfileSequence(input: [UpdateProfileSequenceInput]!): [ProfileResult]!
+}
+
+enum Occupation {
+  EMPLOYEE
+  OTHER
+  PUBLIC_SERVANT
+  SELF_EMPLOYED
+  UNEMPLOYED
+}
+
+enum ProfileColor {
+  BLUE
+  GRAY
+  GREEN
+  ORANGE
+  PINK
+  PURPLE
+  RED
+  YELLOW
+}
+
+type ProfileResult {
+  annualIncome: Int!
+  creditGradeStatus: CreditGradeStatus!
+  desiredLoanAmount: Int!
+  loanProductUsageCount: Int!
+  occupation: Occupation!
+  profileColor: ProfileColor!
+  profileId: Long!
+  profileName: String!
+  profileSeq: Int!
+  purposeOfLoan: PurposeOfLoan!
+  totalLoanUsageAmount: Int!
+}
+
+enum PurposeOfLoan {
+  BUSINESS_FUNDS
+  HOUSING
+  LIVING_EXPENSES
+  LOAN_REPAYMENT
+  MEDICAL_OR_EMERGENCY
+  TUITION
+}
+
+type Query {
+  getLoanProduct(loanProductId: Long!): LoanProductResult!
+  getLoanProductList(page: Int!, profileId: Long!, size: Int!, sortDirection: SortDirection = DESC, sortProperty: String!): RecommendedLoanProductResultList!
+  getProfileById(profileId: Long): ProfileResult!
+  getProfilesByUser: [ProfileResult]!
+  getRelatedLoanProductList(loanProductId: Long!): [RelatedLoanProductResult]!
+}
+
+type RecommendedLoanProductResult {
+  bankName: String!
+  loanProductId: Long!
+  maxInterestRate: Float
+  maxLoanLimitAmount: Long
+  minInterestRate: Float
+  productName: String!
+  profileId: Long!
+  recommendedLoanProductId: Long!
+}
+
+type RecommendedLoanProductResultList {
+  content: [RecommendedLoanProductResult]!
+  hasNext: Boolean
+  page: Int
+  size: Int
+}
+
+type RelatedLoanProductResult {
+  bankName: String!
+  loanProductId: Long!
+  maxInterestRate: Float
+  maxLoanLimitAmount: Int
+  minInterestRate: Float
+  productName: String!
+}
+
+enum RepaymentPeriodUnit {
+  MONTH
+  YEAR
+}
+
+input SignUpInput {
+  dateOfBirth: Date!
+  gender: Gender
+  provider: String!
+  username: String!
+  vendorId: String!
+}
+
+type SignUpResult {
+  accessToken: String!
+  dateOfBirth: String!
+  email: String!
+  gender: Gender!
+  userId: ID!
+  username: String!
+}
+
+enum SortDirection {
+  ASC
+  DESC
+}
+
+input UpdateLoanProductAndPrerequisiteInput {
+  loanPrerequisite: String
+  loanProductBadgeList: [LoanProductBadge]
+  loanProductId: Long
+}
+
+input UpdateProfileColorInput {
+  id: Long!
+  profileColor: ProfileColor!
+}
+
+input UpdateProfileInput {
+  annualIncome: Int!
+  businessStartDate: Date
+  businessType: BusinessType
+  creditGradeStatus: CreditGradeStatus
+  creditScore: Int
+  desiredLoanAmount: Int
+  employmentDate: Date
+  employmentForm: EmploymentForm!
+  loanProductUsageCount: Int
+  loanProductUsageStatus: LoanProductUsageStatus
+  occupation: Occupation!
+  profileId: Long!
+  profileName: String
+  purposeOfLoan: PurposeOfLoan
+  totalLoanUsageAmount: Int
+}
+
+input UpdateProfileSequenceInput {
+  id: Long!
+  seq: Int!
+}

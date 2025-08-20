@@ -1,0 +1,15 @@
+query GetProfilesByUser {
+  getProfilesByUser {
+    annualIncome
+    creditGradeStatus
+    desiredLoanAmount
+    loanProductUsageCount
+    occupation
+    profileColor
+    profileId
+    profileName
+    profileSeq
+    purposeOfLoan
+    totalLoanUsageAmount
+  }
+}
