@@ -24,7 +24,6 @@ export const 프로필카드명입력 = () => {
     const randomIndex = Math.floor(Math.random() * colorKeys.length)
     const selectedKey = colorKeys[randomIndex]
     setValue('profileColor', selectedKey)
-    console.log('selectedKey', selectedKey)
     return selectedKey
   }
   const profileBgColor = `bg-[var(--color-${getValues('profileColor')}-1)]`

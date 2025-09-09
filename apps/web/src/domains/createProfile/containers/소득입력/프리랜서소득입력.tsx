@@ -59,7 +59,7 @@ export const 프리랜서소득입력 = ({ onNext }: 소득입력Props) => {
                     />
                   </FormControl>
                   <span className="b3 text-gs-2 absolute right-[10px] top-1/2 -translate-y-1/2">
-                    만원
+                    원
                   </span>
                 </div>
               </div>
