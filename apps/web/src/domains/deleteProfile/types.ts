@@ -1,3 +1,3 @@
 export interface DeleteProfile {
-  deletedId: string[]
+  deletedIdList: string[]
 }

@@ -37,7 +37,7 @@ export const Profiles = ({ profiles }: ProfilesProps) => {
             <FormField
               key={profile.profileId}
               control={control}
-              name="deletedId"
+              name="deletedIdList"
               render={({ field }) => (
                 <div className="flex-align space-x-[6px]">
                   <FormControl>
@@ -55,7 +55,7 @@ export const Profiles = ({ profiles }: ProfilesProps) => {
                     </div>
                   </FormControl>
                   <label
-                    htmlFor="checkbox"
+                    htmlFor="deletedIdList"
                     className={`truncate h3 flex-align h-[36px] ${textStyle}`}
                   >
                     {profile?.profileName}

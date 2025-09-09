@@ -107,7 +107,7 @@ scalar Long
 
 type Mutation {
   createProfile(input: CreateProfileInput!): ProfileResult!
-  deleteProfile(deletedId: Long): [ProfileResult]!
+  deleteProfile(deletedIdList: [Long]): [ProfileResult]!
   refresh: AuthResult!
   signUp(input: SignUpInput!): SignUpResult!
   updateLoanProductBadgeAndPrerequisite(inputList: [UpdateLoanProductAndPrerequisiteInput]): [LoanProductResult]

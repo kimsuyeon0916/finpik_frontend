@@ -137,7 +137,7 @@ export type MutationCreateProfileArgs = {
 
 
 export type MutationDeleteProfileArgs = {
-  deletedId?: InputMaybe<Scalars['Long']['input']>;
+  deletedIdList?: InputMaybe<Array<InputMaybe<Scalars['Long']['input']>>>;
 };
 
 
@@ -343,7 +343,7 @@ export type CreateProfileMutationVariables = Exact<{
 export type CreateProfileMutation = { __typename?: 'Mutation', createProfile: { __typename?: 'ProfileResult', profileId: any, profileName: string, profileColor: ProfileColor, occupation: Occupation, purposeOfLoan: PurposeOfLoan, annualIncome: number, desiredLoanAmount: number, totalLoanUsageAmount: number, creditGradeStatus: CreditGradeStatus, loanProductUsageCount: number, profileSeq: number } };
 
 export type DeleteProfileMutationVariables = Exact<{
-  deletedId?: InputMaybe<Scalars['Long']['input']>;
+  deletedIdList?: InputMaybe<Array<InputMaybe<Scalars['Long']['input']>> | InputMaybe<Scalars['Long']['input']>>;
 }>;
 
 
@@ -472,8 +472,8 @@ export type CreateProfileMutationHookResult = ReturnType<typeof useCreateProfile
 export type CreateProfileMutationResult = Apollo.MutationResult<CreateProfileMutation>;
 export type CreateProfileMutationOptions = Apollo.BaseMutationOptions<CreateProfileMutation, CreateProfileMutationVariables>;
 export const DeleteProfileDocument = gql`
-    mutation DeleteProfile($deletedId: Long) {
-  deleteProfile(deletedId: $deletedId) {
+    mutation DeleteProfile($deletedIdList: [Long]) {
+  deleteProfile(deletedIdList: $deletedIdList) {
     profileId
     profileName
   }
@@ -494,7 +494,7 @@ export type DeleteProfileMutationFn = Apollo.MutationFunction<DeleteProfileMutat
  * @example
  * const [deleteProfileMutation, { data, loading, error }] = useDeleteProfileMutation({
  *   variables: {
- *      deletedId: // value for 'deletedId'
+ *      deletedIdList: // value for 'deletedIdList'
  *   },
  * });
  */

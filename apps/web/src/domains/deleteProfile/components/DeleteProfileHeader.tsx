@@ -17,12 +17,12 @@ export const DeleteProfileHeader = ({ profileIds }: DeleteProfileHeaderProps) =>
 
   const handleClickAll = () => {
     setSelectAll(!selectAll)
-    setValue('deletedId', !selectAll ? profileIds : [])
+    setValue('deletedIdList', !selectAll ? profileIds : [])
   }
 
   const handleClickReset = () => {
     setSelectAll(false)
-    setValue('deletedId', [])
+    setValue('deletedIdList', !selectAll ? profileIds : [])
   }
 
   return (
@@ -39,12 +39,13 @@ export const DeleteProfileHeader = ({ profileIds }: DeleteProfileHeaderProps) =>
       <div className="flex-between-align w-full py-[12px] px-[20px] border-b border-gs-9">
         <div className="flex-align space-x-[10px] b7 text-gs-2">
           <Checkbox
-            id="deletedId"
+            id="deletedIdList"
             className="border-[1.5px] size-[20px]"
             checked={selectAll}
             onCheckedChange={handleClickAll}
           />
-          <label htmlFor="deletedId" className="cursor-pointer">
+
+          <label htmlFor="deletedIdList" className="cursor-pointer">
             전체 선택
           </label>
         </div>

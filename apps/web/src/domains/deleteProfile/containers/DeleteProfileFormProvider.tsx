@@ -17,11 +17,10 @@ export const DeleteProfileFormProvider = ({ children }: PropsWithChildren) => {
   const { isMounted } = useMount()
 
   const submitFormHandler = async (formData: DeleteProfile) => {
-    console.log(formData)
     try {
       const res = await DeleteProfile({
         variables: {
-          deletedId: getValues('deletedId')[0],
+          deletedIdList: getValues('deletedIdList'),
         },
       })
       console.log('프로필 삭제 성공:', res.data)

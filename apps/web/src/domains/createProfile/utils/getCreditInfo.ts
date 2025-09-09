@@ -2,14 +2,14 @@ import { CreditGradeStatus } from '../../../gql/graphql'
 
 export const getCreditInfo = (creditScore?: number, creditGradeStatus?: string): string | null => {
   const found =
-    creditScore !== undefined
+    creditScore !== 0 && creditScore !== undefined
       ? creditMapping.find(({ min, max }) => creditScore >= min && creditScore <= max)
       : creditMapping.find(({ status }) => status === creditGradeStatus)
 
   if (!found) return null
 
   const scoreText =
-    creditScore !== undefined
+    creditScore !== 0 && creditScore !== undefined
       ? `${creditScore.toLocaleString('ko')}점`
       : `${found.min.toLocaleString('ko')}~${found.max.toLocaleString('ko')}점`
 
