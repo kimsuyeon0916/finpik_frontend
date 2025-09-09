@@ -23,7 +23,7 @@ export const 기타소득입력 = ({ onNext }: 소득입력Props) => {
 
   const handleClickNoIncome = () => {
     setNoIncome(!noIncome)
-    setValue('annualIncome', 0)
+    setValue('annualIncome', '0')
   }
 
   return (

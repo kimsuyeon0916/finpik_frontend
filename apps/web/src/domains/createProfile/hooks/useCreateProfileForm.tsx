@@ -2,7 +2,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
 import { ProfileForm } from '../types'
-import { BusinessType, CreditGradeStatus } from '../../../gql/graphql'
 
 const schema = z.object({
   occupation: z.string(),
@@ -18,8 +17,8 @@ const schema = z.object({
   BusinessType: z.string().optional(),
   businessStartDate: z.date().optional(),
   employmentDate: z.date().optional(),
-  creditScore: z.number().optional(),
-  loanProductUsageCount: z.number(),
+  creditScore: z.string().optional(),
+  loanProductUsageCount: z.string(),
   creditGradeStatus: z.string().optional(),
 })
 
@@ -32,6 +31,8 @@ export const useCreateProfileForm = () => {
       annualIncome: '',
       purposeOfLoan: '',
       desiredLoanAmount: '',
+      loanProductUsageCount: '',
+      creditScore: '',
       loanProductUsageStatus: '',
       totalLoanUsageAmount: '',
       profileName: '',

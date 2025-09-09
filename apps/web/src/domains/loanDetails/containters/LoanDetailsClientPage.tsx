@@ -16,14 +16,18 @@ import {
 } from '@repo/fds/components'
 import { LoanItem } from '../../../components/LoanItem'
 import Link from 'next/link'
+import { useAtomValue } from 'jotai'
+import { selectedProfileIdAtom } from '../../loan/store/selectedProfileId'
 
 export const LoanDetailsClientPage = () => {
+  const selectedProfileId = useAtomValue(selectedProfileIdAtom)
   const router = useRouter()
   const { loanProductId } = useParams<{ loanProductId: string }>()
 
   const { data } = useGetLoanProductQuery({
     variables: {
       loanProductId: loanProductId,
+      profileId: 1, // selectedProfileId로 변경 필요
     },
   })
 
@@ -157,16 +161,16 @@ export const LoanDetailsClientPage = () => {
                 </div>
               </AccordionContent>
             </AccordionItem>
-            {/* <AccordionItem value="상환 수수료">
-            <AccordionTrigger>상환 수수료</AccordionTrigger>
-            <AccordionContent className="flex flex-col gap-[18px] text-balance">
-              <div className="flex-column gap-[8px]">
-                <p className="b10 text-gs-4">
-                  {data?.getLoanProduct.descriptionResult.repaymentFeeGuide}
-                </p>
-              </div>
-            </AccordionContent>
-          </AccordionItem> */}
+            <AccordionItem value="상환 수수료">
+              <AccordionTrigger>상환 수수료</AccordionTrigger>
+              <AccordionContent className="flex flex-col gap-[18px] text-balance">
+                <div className="flex-column gap-[8px]">
+                  <p className="b10 text-gs-4">
+                    {data?.getLoanProduct.descriptionResult.repaymentFeeGuide}
+                  </p>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
             <AccordionItem value="대출 신청 전 확인">
               <AccordionTrigger>대출 신청 전 확인</AccordionTrigger>
               <AccordionContent className="flex flex-col gap-[18px]">
@@ -213,7 +217,7 @@ export const LoanDetailsClientPage = () => {
             </ul>
           </div>
           <div className="fixed bottom-0 w-full px-[20px] pt-[34px] pb-[6px] flex-align gap-[8px] bg-gradient-to-b from-white/0 to-white to-[26.79%]">
-            <Button onClick={() => router.replace('/loan/comparison')} variant="tonal" size="md">
+            <Button onClick={() => router.push('/loan/comparison')} variant="tonal" size="md">
               다른 상품과 비교하기
             </Button>
             <Button size="md">

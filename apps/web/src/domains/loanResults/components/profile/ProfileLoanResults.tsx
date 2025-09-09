@@ -1,25 +1,16 @@
 'use client'
 
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-  Icon,
-} from '@repo/fds/components'
 import { useCallback, useState } from 'react'
 import { useGetLoanProductListQuery } from '../../../../gql/graphql'
 import { LoanItem } from '../../../../components/LoanItem'
 import { useIntersection } from '../../../../hooks/useIntersection'
-import { 정렬기준Map, 프로필색깔ReverseMap } from '../../../createProfile/constants/enumLabelMap'
+import { 정렬기준Map } from '../../../createProfile/constants/enumLabelMap'
 import { Loan } from '../../type'
 import { useAtomValue } from 'jotai'
 import { sortTypeAtom } from '../../../loan/store/sort'
 
 interface ProfileLoanResultsProps {
-  profileId: string
+  profileId: string // props 대신, profileIdAtom에서 갖다쓰도록 추후 변경
 }
 
 export const ProfileLoanResults = ({ profileId }: ProfileLoanResultsProps) => {

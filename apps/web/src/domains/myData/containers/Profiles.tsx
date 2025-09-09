@@ -1,4 +1,3 @@
-import { CarouselItem } from '@repo/fds/components'
 import { useEffect } from 'react'
 import { useGetProfilesByUserQuery } from '../../../gql/graphql'
 import {
@@ -10,6 +9,8 @@ import { getCreditInfo } from '../../createProfile/utils/getCreditInfo'
 import Cookies from 'js-cookie'
 import { Profile } from '../../createProfile/types'
 import { useRouter } from 'next/navigation'
+import { Button } from '@repo/fds/components'
+import Image from 'next/image'
 
 export const Profiles = () => {
   const { data, loading, error } = useGetProfilesByUserQuery({})
@@ -25,10 +26,10 @@ export const Profiles = () => {
     }
   }, [data, loading, error])
 
-  const profiles = (data?.getProfilesByUser as unknown as Profile[]) ?? mockProfiles
+  const profiles = data?.getProfilesByUser as unknown as Profile[]
 
   const router = useRouter()
-  return (
+  return profiles ? (
     <div className="flex-column w-full gap-[12px] px-[20px] py-[18px]">
       {profiles?.map((profile, index) => {
         const colorKey = 프로필색깔ReverseMap[profile?.profileColor]
@@ -53,19 +54,22 @@ export const Profiles = () => {
               <li className="truncate flex-align b5 text-gs-2">
                 <h2 className="shrink-0 c3 text-gs-4 w-[60px]">대출 유무</h2>
                 <p className="truncate">
-                  {`${profile.loanProductUsageCount}개 / ${(Number(profile.totalLoanUsageAmount) / 10000).toLocaleString('ko')}만원`}
+                  {`${profile.loanProductUsageCount}개 / ${Number(profile.totalLoanUsageAmount).toLocaleString('ko')}원`}
                 </p>
               </li>
               <li className="truncate flex-align b5 text-gs-2">
                 <h2 className="shrink-0 c3 text-gs-4 w-[60px]">신용 상태</h2>
                 <p className="truncate">
-                  {getCreditInfo(profile.creditScore, profile.creditGradeStatus)}
+                  {getCreditInfo(
+                    Number(String(profile.creditScore)?.replace(/[^\d]/g, '')),
+                    profile.creditGradeStatus,
+                  )}
                 </p>
               </li>
               <li className="truncate flex-align b5 text-gs-2">
                 <h2 className="shrink-0 c3 text-gs-4 w-[60px]">직업/소득</h2>
                 <p className="truncate">
-                  {`${직업군ReverseMap[profile.occupation]} / 연 ${(Number(profile.annualIncome) / 10000).toLocaleString('ko')}만원`}
+                  {`${직업군ReverseMap[profile.occupation]} / 연 ${Number(profile.annualIncome).toLocaleString('ko')}원`}
                 </p>
               </li>
             </ul>
@@ -81,85 +85,19 @@ export const Profiles = () => {
         )
       })}
     </div>
+  ) : (
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex-column-align w-full">
+      <Image
+        src="/loanResults/no_profile_card.svg"
+        alt="no_profile_card"
+        width={68}
+        height={57}
+        className="mb-[12px] mt-[55px]"
+      />
+      <div className="b4 text-gs-6 text-center mb-[26px] whitespace-pre">{`아직 프로필 카드가 없어요!\n지금 만들어서 꼭 맞는 대출을 추천받아요.`}</div>
+      <Button onClick={() => router.push('/profile/create')} size="sm" className="mb-[36px]">
+        프로필 카드 만들기
+      </Button>
+    </div>
   )
 }
-
-// mock data for testing
-export const mockProfiles: Profile[] = [
-  {
-    profileId: 'p1',
-    profileSeq: 1,
-    profileName: '프로필 카드 이름1',
-    profileColor: 'BLUE',
-    occupation: '무직(주부)',
-    employmentForm: undefined,
-    businessType: undefined,
-    businessStartDate: undefined,
-    annualIncome: '0',
-    employmentDate: undefined,
-    purposeOfLoan: '생활비',
-    desiredLoanAmount: '130000000',
-    loanProductUsageStatus: '없음',
-    loanProductUsageCount: 0,
-    totalLoanUsageAmount: '0',
-    creditScore: 750,
-    creditGradeStatus: '중',
-  },
-  {
-    profileId: 'p2',
-    profileSeq: 2,
-    profileName: '프로필 카드 이름2',
-    profileColor: 'GREEN',
-    occupation: '회사원',
-    employmentForm: '정규직',
-    businessType: undefined,
-    businessStartDate: undefined,
-    annualIncome: '40000000',
-    employmentDate: new Date('2020-03-01'),
-    purposeOfLoan: '주택 구입',
-    desiredLoanAmount: '85000000',
-    loanProductUsageStatus: '있음',
-    loanProductUsageCount: 1,
-    totalLoanUsageAmount: '2500000',
-    creditScore: 690,
-    creditGradeStatus: '중',
-  },
-  {
-    profileId: 'p3',
-    profileSeq: 3,
-    profileName: '프로필 카드 이름3',
-    profileColor: 'RED',
-    occupation: '자영업',
-    employmentForm: undefined,
-    businessType: '도소매업',
-    businessStartDate: new Date('2015-07-15'),
-    annualIncome: '65000000',
-    employmentDate: undefined,
-    purposeOfLoan: '사업 운영',
-    desiredLoanAmount: '150000000',
-    loanProductUsageStatus: '없음',
-    loanProductUsageCount: 0,
-    totalLoanUsageAmount: '0',
-    creditScore: 800,
-    creditGradeStatus: '상',
-  },
-  {
-    profileId: 'p4',
-    profileSeq: 4,
-    profileName: '프로필 카드 이름4',
-    profileColor: 'YELLOW',
-    occupation: '학생',
-    employmentForm: undefined,
-    businessType: undefined,
-    businessStartDate: undefined,
-    annualIncome: '0',
-    employmentDate: undefined,
-    purposeOfLoan: '학자금',
-    desiredLoanAmount: '25000000',
-    loanProductUsageStatus: '있음',
-    loanProductUsageCount: 1,
-    totalLoanUsageAmount: '1000000',
-    creditScore: 580,
-    creditGradeStatus: '하',
-  },
-]

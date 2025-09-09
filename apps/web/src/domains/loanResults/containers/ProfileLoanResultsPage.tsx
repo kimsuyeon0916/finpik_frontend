@@ -121,7 +121,7 @@ export const ProfileLoanResultsPage = ({ profiles }: ProfileLoanResultsPageProps
           <button
             type="button"
             className="flex-align gap-[4px] px-[18px] py-[13px] rounded-xl bg-pm-1 shadow-2 fixed bottom-[42px] right-[19.6px] z-[999] cursor-pointer"
-            onClick={() => router.replace('/loan/comparison')}
+            onClick={() => router.push('/loan/comparison')}
           >
             <span className="b7 text-bg-1">상품 비교하기</span>{' '}
             <Icon name="compare" color="#ffffff" />
@@ -179,19 +179,22 @@ function UnifiedCarouselView({ profiles, isCompact }: { profiles: Profile[]; isC
                           <li className="truncate flex-align b5 text-gs-2">
                             <h2 className="shrink-0 c3 text-gs-4 w-[60px]">대출 유무</h2>
                             <p className="truncate">
-                              {`${p.loanProductUsageCount}개 / ${(Number(p.totalLoanUsageAmount) / 10000).toLocaleString('ko')}만원`}
+                              {`${p.loanProductUsageCount}개 / ${Number(p.totalLoanUsageAmount).toLocaleString('ko')}원`}
                             </p>
                           </li>
                           <li className="truncate flex-align b5 text-gs-2">
                             <h2 className="shrink-0 c3 text-gs-4 w-[60px]">신용 상태</h2>
                             <p className="truncate">
-                              {getCreditInfo(p.creditScore, p.creditGradeStatus)}
+                              {getCreditInfo(
+                                Number(String(p.creditScore)?.replace(/[^\d]/g, '')),
+                                p.creditGradeStatus,
+                              )}
                             </p>
                           </li>
                           <li className="truncate flex-align b5 text-gs-2">
                             <h2 className="shrink-0 c3 text-gs-4 w-[60px]">직업/소득</h2>
                             <p className="truncate">
-                              {`${직업군ReverseMap[p.occupation]} / 연 ${(Number(p.annualIncome) / 10000).toLocaleString('ko')}만원`}
+                              {`${직업군ReverseMap[p.occupation]} / 연 ${Number(p.annualIncome).toLocaleString('ko')}원`}
                             </p>
                           </li>
                         </ul>
@@ -227,17 +230,20 @@ function UnifiedCarouselView({ profiles, isCompact }: { profiles: Profile[]; isC
                           <li
                             className={`px-[16px] py-[8px] rounded-xs ${bgStyle} whitespace-nowrap`}
                           >
-                            {`${p.loanProductUsageCount}개 / ${(Number(p.totalLoanUsageAmount) / 10000).toLocaleString('ko')}만원`}
+                            {`${p.loanProductUsageCount}개 / ${Number(p.totalLoanUsageAmount).toLocaleString('ko')}원`}
                           </li>
                           <li
                             className={`px-[16px] py-[8px] rounded-xs ${bgStyle} whitespace-nowrap`}
                           >
-                            {getCreditInfo(p.creditScore, p.creditGradeStatus)}
+                            {getCreditInfo(
+                              Number(String(p.creditScore)?.replace(/[^\d]/g, '')),
+                              p.creditGradeStatus,
+                            )}
                           </li>
                           <li
                             className={`px-[16px] py-[8px] rounded-xs ${bgStyle} whitespace-nowrap`}
                           >
-                            {`${직업군ReverseMap[p.occupation]} / 연 ${(Number(p.annualIncome) / 10000).toLocaleString('ko')}만원`}
+                            {`${직업군ReverseMap[p.occupation]} / 연 ${Number(p.annualIncome).toLocaleString('ko')}원`}
                           </li>
                         </ul>
                       </div>
@@ -261,17 +267,20 @@ function UnifiedCarouselView({ profiles, isCompact }: { profiles: Profile[]; isC
                             <li
                               className={`px-[16px] py-[8px] rounded-xs ${bgStyle} whitespace-nowrap`}
                             >
-                              {`${p.loanProductUsageCount}개 / ${(Number(p.totalLoanUsageAmount) / 10000).toLocaleString('ko')}만원`}
+                              {`${p.loanProductUsageCount}개 / ${Number(p.totalLoanUsageAmount).toLocaleString('ko')}원`}
                             </li>
                             <li
                               className={`px-[16px] py-[8px] rounded-xs ${bgStyle} whitespace-nowrap`}
                             >
-                              {getCreditInfo(p.creditScore, p.creditGradeStatus)}
+                              {getCreditInfo(
+                                Number(String(p.creditScore)?.replace(/[^\d]/g, '')),
+                                p.creditGradeStatus,
+                              )}
                             </li>
                             <li
                               className={`px-[16px] py-[8px] rounded-xs ${bgStyle} whitespace-nowrap`}
                             >
-                              {`${직업군ReverseMap[p.occupation]} / 연 ${(Number(p.annualIncome) / 10000).toLocaleString('ko')}만원`}
+                              {`${직업군ReverseMap[p.occupation]} / 연 ${Number(p.annualIncome).toLocaleString('ko')}원`}
                             </li>
                           </ul>
                         </div>
@@ -290,19 +299,22 @@ function UnifiedCarouselView({ profiles, isCompact }: { profiles: Profile[]; isC
                             <li className="truncate flex-align b5 text-gs-2">
                               <h2 className="shrink-0 c3 text-gs-4 w-[60px]">대출 유무</h2>
                               <p className="truncate">
-                                {`${p.loanProductUsageCount}개 / ${(Number(p.totalLoanUsageAmount) / 10000).toLocaleString('ko')}만원`}
+                                {`${p.loanProductUsageCount}개 / ${Number(p.totalLoanUsageAmount).toLocaleString('ko')}원`}
                               </p>
                             </li>
                             <li className="truncate flex-align b5 text-gs-2">
                               <h2 className="shrink-0 c3 text-gs-4 w-[60px]">신용 상태</h2>
                               <p className="truncate">
-                                {getCreditInfo(p.creditScore, p.creditGradeStatus)}
+                                {getCreditInfo(
+                                  Number(String(p.creditScore)?.replace(/[^\d]/g, '')),
+                                  p.creditGradeStatus,
+                                )}
                               </p>
                             </li>
                             <li className="truncate flex-align b5 text-gs-2">
                               <h2 className="shrink-0 c3 text-gs-4 w-[60px]">직업/소득</h2>
                               <p className="truncate">
-                                {`${직업군ReverseMap[p.occupation]} / 연 ${(Number(p.annualIncome) / 10000).toLocaleString('ko')}만원`}
+                                {`${직업군ReverseMap[p.occupation]} / 연 ${Number(p.annualIncome).toLocaleString('ko')}원`}
                               </p>
                             </li>
                           </ul>

@@ -55,9 +55,9 @@ export const CreateProfileFormProvider = ({ children }: PropsWithChildren) => {
             businessType: 업종형태Map[getValues('businessType') as string] as BusinessType,
             businessStartDate: safeFormat(getValues('businessStartDate')),
             occupation: 직업군Map[formData.occupation as string] as Occupation,
-            annualIncome: Number(getValues('annualIncome')) * 10000,
-            desiredLoanAmount: Number(formData.desiredLoanAmount) * 10000,
-            totalLoanUsageAmount: Number(formData.totalLoanUsageAmount) * 10000,
+            annualIncome: Number(getValues('annualIncome')),
+            desiredLoanAmount: Number(formData.desiredLoanAmount),
+            totalLoanUsageAmount: Number(formData.totalLoanUsageAmount),
             purposeOfLoan: 대출목적Map[formData.purposeOfLoan] as PurposeOfLoan,
             loanProductUsageStatus: 이용대출Map[
               formData.loanProductUsageStatus
@@ -89,7 +89,7 @@ export const CreateProfileFormProvider = ({ children }: PropsWithChildren) => {
           </form>
         </Form>
       </FormProvider>
-      {process.env.NODE_ENV === 'development' && <DevTool control={control}></DevTool>}
+      {/* {process.env.NODE_ENV === 'development' && <DevTool control={control}></DevTool>} */}
     </>
   )
 }

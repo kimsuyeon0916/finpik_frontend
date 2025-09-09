@@ -12,9 +12,9 @@ export interface Profile {
   purposeOfLoan: string // 대출 목적
   desiredLoanAmount: string // 희망 대출 금액
   loanProductUsageStatus: string // 이용 대출 서비스
-  loanProductUsageCount: number // 대출 개수
+  loanProductUsageCount: string // 대출 개수
   totalLoanUsageAmount: string // 총 대출 사용 금액
-  creditScore?: number // 신용 점수
+  creditScore?: string // 신용 점수
   creditGradeStatus?: string // 신용 등급
 }
 

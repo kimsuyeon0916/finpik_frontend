@@ -159,7 +159,7 @@ enum PurposeOfLoan {
 }
 
 type Query {
-  getLoanProduct(loanProductId: Long!): LoanProductResult!
+  getLoanProduct(loanProductId: Long!, profileId: Long!): LoanProductResult!
   getLoanProductList(page: Int!, profileId: Long!, size: Int!, sortDirection: SortDirection = DESC, sortProperty: String!): RecommendedLoanProductResultList!
   getProfileById(profileId: Long): ProfileResult!
   getProfilesByUser: [ProfileResult]!
@@ -174,7 +174,9 @@ type RecommendedLoanProductResult {
   minInterestRate: Float
   productName: String!
   profileId: Long!
-  recommendedLoanProductId: Long!
+
+  """여기 변경 됨 2025-08-29"""
+  recommendedLoanProductId: String!
 }
 
 type RecommendedLoanProductResultList {

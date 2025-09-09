@@ -5,6 +5,7 @@ import { useFormContext } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { 신용상태Map, 프로필색깔Map } from '../constants/enumLabelMap'
 import { getCreditInfo } from '../utils/getCreditInfo'
+import { useEffect } from 'react'
 
 export const 프로필카드명입력 = () => {
   const {
@@ -23,9 +24,14 @@ export const 프로필카드명입력 = () => {
     const randomIndex = Math.floor(Math.random() * colorKeys.length)
     const selectedKey = colorKeys[randomIndex]
     setValue('profileColor', selectedKey)
+    console.log('selectedKey', selectedKey)
     return selectedKey
   }
-  const profileBgColor = `bg-${getRandomProfileColor()}-1`
+  const profileBgColor = `bg-[var(--color-${getValues('profileColor')}-1)]`
+
+  useEffect(() => {
+    getRandomProfileColor()
+  }, [])
 
   return (
     <div className="flex-column-between h-screen pb-[8px]">
@@ -46,7 +52,7 @@ export const 프로필카드명입력 = () => {
               <h2 className="shrink-0 c3 text-gs-4 w-[60px]">대출 유무</h2>
               <p className="truncate">
                 {getValues('loanProductUsageCount')}개 /{' '}
-                {Number(getValues('totalLoanUsageAmount')).toLocaleString('ko')}만원
+                {Number(getValues('totalLoanUsageAmount')).toLocaleString('ko')}원
               </p>
             </li>
             <li className="truncate flex-align b5 text-gs-2">
@@ -62,7 +68,7 @@ export const 프로필카드명입력 = () => {
               <h2 className="shrink-0 c3 text-gs-4 w-[60px]">직업/소득</h2>
               <p className="truncate">
                 {getValues('occupation')} / 연{' '}
-                {Number(getValues('annualIncome')).toLocaleString('ko')}만원
+                {Number(getValues('annualIncome')).toLocaleString('ko')}원
               </p>
             </li>
           </ul>
@@ -70,7 +76,7 @@ export const 프로필카드명입력 = () => {
           <div className="flex-between-align">
             <h2 className="shrink-0 b7 text-gs-4">대출 희망 금액</h2>
             <div className="h4 flex-align gap-[1px]">
-              <span>{(Number(getValues('desiredLoanAmount')) * 10000).toLocaleString('ko')}</span>
+              <span>{Number(getValues('desiredLoanAmount')).toLocaleString('ko')}</span>
               <span>원</span>
             </div>
           </div>

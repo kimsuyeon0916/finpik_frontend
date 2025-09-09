@@ -112,19 +112,22 @@ const CarouselWithSync = ({
                     <li className="truncate flex-align b5 text-gs-2">
                       <h2 className="shrink-0 c3 text-gs-4 w-[60px]">대출 유무</h2>
                       <p className="truncate">
-                        {`${profile.loanProductUsageCount}개 / ${(Number(profile.totalLoanUsageAmount) / 10000).toLocaleString('ko')}만원`}
+                        {`${profile.loanProductUsageCount}개 / ${Number(profile.totalLoanUsageAmount).toLocaleString('ko')}원`}
                       </p>
                     </li>
                     <li className="truncate flex-align b5 text-gs-2">
                       <h2 className="shrink-0 c3 text-gs-4 w-[60px]">신용 상태</h2>
                       <p className="truncate">
-                        {getCreditInfo(profile.creditScore, profile.creditGradeStatus)}
+                        {getCreditInfo(
+                          Number(String(profile.creditScore)?.replace(/[^\d]/g, '')),
+                          profile.creditGradeStatus,
+                        )}
                       </p>
                     </li>
                     <li className="truncate flex-align b5 text-gs-2">
                       <h2 className="shrink-0 c3 text-gs-4 w-[60px]">직업/소득</h2>
                       <p className="truncate">
-                        {`${직업군ReverseMap[profile.occupation]} / 연 ${(Number(profile.annualIncome) / 10000).toLocaleString('ko')}만원`}
+                        {`${직업군ReverseMap[profile.occupation]} / 연 ${Number(profile.annualIncome).toLocaleString('ko')}원`}
                       </p>
                     </li>
                   </ul>
@@ -187,13 +190,16 @@ const CompactCarouselWithSync = ({
                         {대출목적ReverseMap[profile.purposeOfLoan]}
                       </li>
                       <li className={`px-[16px] py-[8px] rounded-xs ${bgStyle} whitespace-nowrap`}>
-                        {`${profile.loanProductUsageCount}개 / ${(Number(profile.totalLoanUsageAmount) / 10000).toLocaleString('ko')}만원`}
+                        {`${profile.loanProductUsageCount}개 / ${Number(profile.totalLoanUsageAmount).toLocaleString('ko')}원`}
                       </li>
                       <li className={`px-[16px] py-[8px] rounded-xs ${bgStyle} whitespace-nowrap`}>
-                        {getCreditInfo(profile.creditScore, profile.creditGradeStatus)}
+                        {getCreditInfo(
+                          Number(String(profile.creditScore)?.replace(/[^\d]/g, '')),
+                          profile.creditGradeStatus,
+                        )}
                       </li>
                       <li className={`px-[16px] py-[8px] rounded-xs ${bgStyle} whitespace-nowrap`}>
-                        {`${직업군ReverseMap[profile.occupation]} / 연 ${(Number(profile.annualIncome) / 10000).toLocaleString('ko')}만원`}
+                        {`${직업군ReverseMap[profile.occupation]} / 연 ${Number(profile.annualIncome).toLocaleString('ko')}원`}
                       </li>
                     </ul>
                   </CarouselItem>

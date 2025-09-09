@@ -35,10 +35,14 @@ export const 신용점수입력 = ({ onCreditStatus, onNext }: 신용점수입�
                   <Input
                     id="creditScore"
                     placeholder="0"
-                    type="number"
+                    type="text"
                     className="h5 px-[6px] py-[11px] no-spinner"
                     {...field}
-                    value={field.value ?? ''}
+                    value={field.value === '' ? '' : Number(field.value).toLocaleString('ko-KR')}
+                    onChange={(e) => {
+                      const onlyDigits = e.target.value.replace(/[^\d]/g, '')
+                      field.onChange(onlyDigits)
+                    }}
                   />
                 </FormControl>
                 <span className="b3 text-gs-2 absolute right-[10px] top-1/2 -translate-y-1/2">

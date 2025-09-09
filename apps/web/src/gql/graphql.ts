@@ -220,6 +220,7 @@ export type Query = {
 
 export type QueryGetLoanProductArgs = {
   loanProductId: Scalars['Long']['input'];
+  profileId: Scalars['Long']['input'];
 };
 
 
@@ -250,7 +251,8 @@ export type RecommendedLoanProductResult = {
   minInterestRate?: Maybe<Scalars['Float']['output']>;
   productName: Scalars['String']['output'];
   profileId: Scalars['Long']['output'];
-  recommendedLoanProductId: Scalars['Long']['output'];
+  /** 여기 변경 됨 2025-08-29 */
+  recommendedLoanProductId: Scalars['String']['output'];
 };
 
 export type RecommendedLoanProductResultList = {
@@ -338,7 +340,7 @@ export type CreateProfileMutationVariables = Exact<{
 }>;
 
 
-export type CreateProfileMutation = { __typename?: 'Mutation', createProfile: { __typename?: 'ProfileResult', profileId: any, profileName: string, profileColor: ProfileColor, profileSeq: number, occupation: Occupation, creditGradeStatus: CreditGradeStatus, desiredLoanAmount: number, loanProductUsageCount: number, purposeOfLoan: PurposeOfLoan, totalLoanUsageAmount: number, annualIncome: number } };
+export type CreateProfileMutation = { __typename?: 'Mutation', createProfile: { __typename?: 'ProfileResult', profileId: any, profileName: string, profileColor: ProfileColor, occupation: Occupation, purposeOfLoan: PurposeOfLoan, annualIncome: number, desiredLoanAmount: number, totalLoanUsageAmount: number, creditGradeStatus: CreditGradeStatus, loanProductUsageCount: number, profileSeq: number } };
 
 export type DeleteProfileMutationVariables = Exact<{
   deletedId?: InputMaybe<Scalars['Long']['input']>;
@@ -349,10 +351,11 @@ export type DeleteProfileMutation = { __typename?: 'Mutation', deleteProfile: Ar
 
 export type GetLoanProductQueryVariables = Exact<{
   loanProductId: Scalars['Long']['input'];
+  profileId: Scalars['Long']['input'];
 }>;
 
 
-export type GetLoanProductQuery = { __typename?: 'Query', getLoanProduct: { __typename?: 'LoanProductResult', bankName: string, maxInterestRate?: number | null, maxLoanLimitAmount?: number | null, minInterestRate?: number | null, productName: string, repaymentPeriod?: number | null, repaymentPeriodUnit?: RepaymentPeriodUnit | null, url: string, descriptionResult: { __typename?: 'LoanProductDescriptionResult', interestRateGuide?: string | null, loanPrerequisite?: string | null, loanTargetGuide?: string | null, maxLoanLimitGuide?: string | null, notesOnLoan?: string | null, preLoanChecklist: string, repaymentPeriodGuide?: string | null } } };
+export type GetLoanProductQuery = { __typename?: 'Query', getLoanProduct: { __typename?: 'LoanProductResult', bankName: string, loanProductBadgeList?: Array<LoanProductBadge | null> | null, maxInterestRate?: number | null, maxLoanLimitAmount?: number | null, minInterestRate?: number | null, productName: string, repaymentPeriod?: number | null, repaymentPeriodUnit?: RepaymentPeriodUnit | null, url: string, descriptionResult: { __typename?: 'LoanProductDescriptionResult', interestRateGuide?: string | null, loanPrerequisite?: string | null, loanTargetGuide?: string | null, maxLoanLimitGuide?: string | null, notesOnLoan?: string | null, preLoanChecklist: string, repaymentFeeGuide?: string | null, repaymentPeriodGuide?: string | null } } };
 
 export type GetLoanProductListQueryVariables = Exact<{
   page: Scalars['Int']['input'];
@@ -363,26 +366,26 @@ export type GetLoanProductListQueryVariables = Exact<{
 }>;
 
 
-export type GetLoanProductListQuery = { __typename?: 'Query', getLoanProductList: { __typename?: 'RecommendedLoanProductResultList', hasNext?: boolean | null, page?: number | null, size?: number | null, content: Array<{ __typename?: 'RecommendedLoanProductResult', recommendedLoanProductId: any, loanProductId: any, profileId: any, bankName: string, productName: string, minInterestRate?: number | null, maxInterestRate?: number | null, maxLoanLimitAmount?: any | null } | null> } };
+export type GetLoanProductListQuery = { __typename?: 'Query', getLoanProductList: { __typename?: 'RecommendedLoanProductResultList', hasNext?: boolean | null, page?: number | null, size?: number | null, content: Array<{ __typename?: 'RecommendedLoanProductResult', bankName: string, loanProductId: any, maxInterestRate?: number | null, maxLoanLimitAmount?: any | null, minInterestRate?: number | null, productName: string, profileId: any, recommendedLoanProductId: string } | null> } };
 
 export type GetProfileByIdQueryVariables = Exact<{
-  profileId?: InputMaybe<Scalars['Long']['input']>;
+  profileId: Scalars['Long']['input'];
 }>;
 
 
-export type GetProfileByIdQuery = { __typename?: 'Query', getProfileById: { __typename?: 'ProfileResult', profileId: any, profileName: string, profileColor: ProfileColor, profileSeq: number, occupation: Occupation, creditGradeStatus: CreditGradeStatus, desiredLoanAmount: number, loanProductUsageCount: number, purposeOfLoan: PurposeOfLoan, totalLoanUsageAmount: number, annualIncome: number } };
+export type GetProfileByIdQuery = { __typename?: 'Query', getProfileById: { __typename?: 'ProfileResult', annualIncome: number, creditGradeStatus: CreditGradeStatus, desiredLoanAmount: number, loanProductUsageCount: number, occupation: Occupation, profileColor: ProfileColor, profileId: any, profileName: string, profileSeq: number, purposeOfLoan: PurposeOfLoan, totalLoanUsageAmount: number } };
 
 export type GetProfilesByUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProfilesByUserQuery = { __typename?: 'Query', getProfilesByUser: Array<{ __typename?: 'ProfileResult', profileId: any, profileName: string, profileColor: ProfileColor, profileSeq: number, occupation: Occupation, creditGradeStatus: CreditGradeStatus, desiredLoanAmount: number, loanProductUsageCount: number, purposeOfLoan: PurposeOfLoan, totalLoanUsageAmount: number, annualIncome: number } | null> };
+export type GetProfilesByUserQuery = { __typename?: 'Query', getProfilesByUser: Array<{ __typename?: 'ProfileResult', annualIncome: number, creditGradeStatus: CreditGradeStatus, desiredLoanAmount: number, loanProductUsageCount: number, occupation: Occupation, profileColor: ProfileColor, profileId: any, profileName: string, profileSeq: number, purposeOfLoan: PurposeOfLoan, totalLoanUsageAmount: number } | null> };
 
 export type GetRelatedLoanProductListQueryVariables = Exact<{
   loanProductId: Scalars['Long']['input'];
 }>;
 
 
-export type GetRelatedLoanProductListQuery = { __typename?: 'Query', getRelatedLoanProductList: Array<{ __typename?: 'RelatedLoanProductResult', loanProductId: any, bankName: string, productName: string, minInterestRate?: number | null, maxInterestRate?: number | null, maxLoanLimitAmount?: number | null } | null> };
+export type GetRelatedLoanProductListQuery = { __typename?: 'Query', getRelatedLoanProductList: Array<{ __typename?: 'RelatedLoanProductResult', bankName: string, loanProductId: any, maxInterestRate?: number | null, maxLoanLimitAmount?: number | null, minInterestRate?: number | null, productName: string } | null> };
 
 export type RefreshMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -396,12 +399,19 @@ export type SignUpMutationVariables = Exact<{
 
 export type SignUpMutation = { __typename?: 'Mutation', signUp: { __typename?: 'SignUpResult', accessToken: string, dateOfBirth: string, email: string, gender: Gender, userId: string, username: string } };
 
+export type UpdateLoanProductBadgeAndPrerequisiteMutationVariables = Exact<{
+  inputList?: InputMaybe<Array<InputMaybe<UpdateLoanProductAndPrerequisiteInput>> | InputMaybe<UpdateLoanProductAndPrerequisiteInput>>;
+}>;
+
+
+export type UpdateLoanProductBadgeAndPrerequisiteMutation = { __typename?: 'Mutation', updateLoanProductBadgeAndPrerequisite?: Array<{ __typename?: 'LoanProductResult', productName: string, loanProductBadgeList?: Array<LoanProductBadge | null> | null, maxLoanLimitAmount?: number | null, minInterestRate?: number | null, maxInterestRate?: number | null, bankName: string, url: string, repaymentPeriod?: number | null, repaymentPeriodUnit?: RepaymentPeriodUnit | null, descriptionResult: { __typename?: 'LoanProductDescriptionResult', interestRateGuide?: string | null, loanPrerequisite?: string | null, loanTargetGuide?: string | null, maxLoanLimitGuide?: string | null, notesOnLoan?: string | null, preLoanChecklist: string, repaymentFeeGuide?: string | null, repaymentPeriodGuide?: string | null } } | null> | null };
+
 export type UpdateProfileMutationVariables = Exact<{
   input: UpdateProfileInput;
 }>;
 
 
-export type UpdateProfileMutation = { __typename?: 'Mutation', updateProfile: { __typename?: 'ProfileResult', profileId: any, profileName: string, profileColor: ProfileColor, profileSeq: number, occupation: Occupation, creditGradeStatus: CreditGradeStatus, desiredLoanAmount: number, loanProductUsageCount: number, purposeOfLoan: PurposeOfLoan, totalLoanUsageAmount: number, annualIncome: number } };
+export type UpdateProfileMutation = { __typename?: 'Mutation', updateProfile: { __typename?: 'ProfileResult', profileId: any, profileName: string, profileColor: ProfileColor, occupation: Occupation, purposeOfLoan: PurposeOfLoan, annualIncome: number, desiredLoanAmount: number, totalLoanUsageAmount: number, creditGradeStatus: CreditGradeStatus, loanProductUsageCount: number, profileSeq: number } };
 
 export type UpdateProfileColorMutationVariables = Exact<{
   input: UpdateProfileColorInput;
@@ -415,7 +425,7 @@ export type UpdateProfileSequenceMutationVariables = Exact<{
 }>;
 
 
-export type UpdateProfileSequenceMutation = { __typename?: 'Mutation', updateProfileSequence: Array<{ __typename?: 'ProfileResult', profileId: any, profileSeq: number } | null> };
+export type UpdateProfileSequenceMutation = { __typename?: 'Mutation', updateProfileSequence: Array<{ __typename?: 'ProfileResult', profileId: any, profileName: string, profileSeq: number } | null> };
 
 
 export const CreateProfileDocument = gql`
@@ -424,14 +434,14 @@ export const CreateProfileDocument = gql`
     profileId
     profileName
     profileColor
-    profileSeq
     occupation
-    creditGradeStatus
-    desiredLoanAmount
-    loanProductUsageCount
     purposeOfLoan
-    totalLoanUsageAmount
     annualIncome
+    desiredLoanAmount
+    totalLoanUsageAmount
+    creditGradeStatus
+    loanProductUsageCount
+    profileSeq
   }
 }
     `;
@@ -496,8 +506,8 @@ export type DeleteProfileMutationHookResult = ReturnType<typeof useDeleteProfile
 export type DeleteProfileMutationResult = Apollo.MutationResult<DeleteProfileMutation>;
 export type DeleteProfileMutationOptions = Apollo.BaseMutationOptions<DeleteProfileMutation, DeleteProfileMutationVariables>;
 export const GetLoanProductDocument = gql`
-    query GetLoanProduct($loanProductId: Long!) {
-  getLoanProduct(loanProductId: $loanProductId) {
+    query GetLoanProduct($loanProductId: Long!, $profileId: Long!) {
+  getLoanProduct(loanProductId: $loanProductId, profileId: $profileId) {
     bankName
     descriptionResult {
       interestRateGuide
@@ -506,8 +516,10 @@ export const GetLoanProductDocument = gql`
       maxLoanLimitGuide
       notesOnLoan
       preLoanChecklist
+      repaymentFeeGuide
       repaymentPeriodGuide
     }
+    loanProductBadgeList
     maxInterestRate
     maxLoanLimitAmount
     minInterestRate
@@ -532,6 +544,7 @@ export const GetLoanProductDocument = gql`
  * const { data, loading, error } = useGetLoanProductQuery({
  *   variables: {
  *      loanProductId: // value for 'loanProductId'
+ *      profileId: // value for 'profileId'
  *   },
  * });
  */
@@ -561,14 +574,14 @@ export const GetLoanProductListDocument = gql`
     sortProperty: $sortProperty
   ) {
     content {
-      recommendedLoanProductId
-      loanProductId
-      profileId
       bankName
-      productName
-      minInterestRate
+      loanProductId
       maxInterestRate
       maxLoanLimitAmount
+      minInterestRate
+      productName
+      profileId
+      recommendedLoanProductId
     }
     hasNext
     page
@@ -614,19 +627,19 @@ export type GetLoanProductListLazyQueryHookResult = ReturnType<typeof useGetLoan
 export type GetLoanProductListSuspenseQueryHookResult = ReturnType<typeof useGetLoanProductListSuspenseQuery>;
 export type GetLoanProductListQueryResult = Apollo.QueryResult<GetLoanProductListQuery, GetLoanProductListQueryVariables>;
 export const GetProfileByIdDocument = gql`
-    query GetProfileById($profileId: Long) {
+    query GetProfileById($profileId: Long!) {
   getProfileById(profileId: $profileId) {
-    profileId
-    profileName
-    profileColor
-    profileSeq
-    occupation
+    annualIncome
     creditGradeStatus
     desiredLoanAmount
     loanProductUsageCount
+    occupation
+    profileColor
+    profileId
+    profileName
+    profileSeq
     purposeOfLoan
     totalLoanUsageAmount
-    annualIncome
   }
 }
     `;
@@ -647,7 +660,7 @@ export const GetProfileByIdDocument = gql`
  *   },
  * });
  */
-export function useGetProfileByIdQuery(baseOptions?: Apollo.QueryHookOptions<GetProfileByIdQuery, GetProfileByIdQueryVariables>) {
+export function useGetProfileByIdQuery(baseOptions: Apollo.QueryHookOptions<GetProfileByIdQuery, GetProfileByIdQueryVariables> & ({ variables: GetProfileByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetProfileByIdQuery, GetProfileByIdQueryVariables>(GetProfileByIdDocument, options);
       }
@@ -666,17 +679,17 @@ export type GetProfileByIdQueryResult = Apollo.QueryResult<GetProfileByIdQuery, 
 export const GetProfilesByUserDocument = gql`
     query GetProfilesByUser {
   getProfilesByUser {
-    profileId
-    profileName
-    profileColor
-    profileSeq
-    occupation
+    annualIncome
     creditGradeStatus
     desiredLoanAmount
     loanProductUsageCount
+    occupation
+    profileColor
+    profileId
+    profileName
+    profileSeq
     purposeOfLoan
     totalLoanUsageAmount
-    annualIncome
   }
 }
     `;
@@ -715,12 +728,12 @@ export type GetProfilesByUserQueryResult = Apollo.QueryResult<GetProfilesByUserQ
 export const GetRelatedLoanProductListDocument = gql`
     query GetRelatedLoanProductList($loanProductId: Long!) {
   getRelatedLoanProductList(loanProductId: $loanProductId) {
-    loanProductId
     bankName
-    productName
-    minInterestRate
+    loanProductId
     maxInterestRate
     maxLoanLimitAmount
+    minInterestRate
+    productName
   }
 }
     `;
@@ -827,20 +840,71 @@ export function useSignUpMutation(baseOptions?: Apollo.MutationHookOptions<SignU
 export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
 export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
 export type SignUpMutationOptions = Apollo.BaseMutationOptions<SignUpMutation, SignUpMutationVariables>;
+export const UpdateLoanProductBadgeAndPrerequisiteDocument = gql`
+    mutation UpdateLoanProductBadgeAndPrerequisite($inputList: [UpdateLoanProductAndPrerequisiteInput]) {
+  updateLoanProductBadgeAndPrerequisite(inputList: $inputList) {
+    productName
+    loanProductBadgeList
+    maxLoanLimitAmount
+    minInterestRate
+    maxInterestRate
+    bankName
+    url
+    repaymentPeriod
+    repaymentPeriodUnit
+    descriptionResult {
+      interestRateGuide
+      loanPrerequisite
+      loanTargetGuide
+      maxLoanLimitGuide
+      notesOnLoan
+      preLoanChecklist
+      repaymentFeeGuide
+      repaymentPeriodGuide
+    }
+  }
+}
+    `;
+export type UpdateLoanProductBadgeAndPrerequisiteMutationFn = Apollo.MutationFunction<UpdateLoanProductBadgeAndPrerequisiteMutation, UpdateLoanProductBadgeAndPrerequisiteMutationVariables>;
+
+/**
+ * __useUpdateLoanProductBadgeAndPrerequisiteMutation__
+ *
+ * To run a mutation, you first call `useUpdateLoanProductBadgeAndPrerequisiteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateLoanProductBadgeAndPrerequisiteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateLoanProductBadgeAndPrerequisiteMutation, { data, loading, error }] = useUpdateLoanProductBadgeAndPrerequisiteMutation({
+ *   variables: {
+ *      inputList: // value for 'inputList'
+ *   },
+ * });
+ */
+export function useUpdateLoanProductBadgeAndPrerequisiteMutation(baseOptions?: Apollo.MutationHookOptions<UpdateLoanProductBadgeAndPrerequisiteMutation, UpdateLoanProductBadgeAndPrerequisiteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateLoanProductBadgeAndPrerequisiteMutation, UpdateLoanProductBadgeAndPrerequisiteMutationVariables>(UpdateLoanProductBadgeAndPrerequisiteDocument, options);
+      }
+export type UpdateLoanProductBadgeAndPrerequisiteMutationHookResult = ReturnType<typeof useUpdateLoanProductBadgeAndPrerequisiteMutation>;
+export type UpdateLoanProductBadgeAndPrerequisiteMutationResult = Apollo.MutationResult<UpdateLoanProductBadgeAndPrerequisiteMutation>;
+export type UpdateLoanProductBadgeAndPrerequisiteMutationOptions = Apollo.BaseMutationOptions<UpdateLoanProductBadgeAndPrerequisiteMutation, UpdateLoanProductBadgeAndPrerequisiteMutationVariables>;
 export const UpdateProfileDocument = gql`
     mutation UpdateProfile($input: UpdateProfileInput!) {
   updateProfile(input: $input) {
     profileId
     profileName
     profileColor
-    profileSeq
     occupation
-    creditGradeStatus
-    desiredLoanAmount
-    loanProductUsageCount
     purposeOfLoan
-    totalLoanUsageAmount
     annualIncome
+    desiredLoanAmount
+    totalLoanUsageAmount
+    creditGradeStatus
+    loanProductUsageCount
+    profileSeq
   }
 }
     `;
@@ -908,6 +972,7 @@ export const UpdateProfileSequenceDocument = gql`
     mutation UpdateProfileSequence($input: [UpdateProfileSequenceInput]!) {
   updateProfileSequence(input: $input) {
     profileId
+    profileName
     profileSeq
   }
 }

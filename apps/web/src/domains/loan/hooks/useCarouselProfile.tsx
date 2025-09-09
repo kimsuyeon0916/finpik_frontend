@@ -1,12 +1,14 @@
 import { useCarousel } from '@repo/fds/components'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Profile } from '../../createProfile/types'
 import { selectedIndexAtom } from '../store/selectedIndex'
-import { useAtom } from 'jotai'
+import { useAtom, useSetAtom } from 'jotai'
+import { selectedProfileIdAtom } from '../store/selectedProfileId'
 
 export const useCarouselProfile = (profiles: Profile[]) => {
   const { api } = useCarousel()
   const [selectedIndex, setSelectedIndex] = useAtom(selectedIndexAtom)
+  const setSelectedProfileId = useSetAtom(selectedProfileIdAtom)
 
   useEffect(() => {
     if (!api) return
@@ -15,6 +17,7 @@ export const useCarouselProfile = (profiles: Profile[]) => {
 
     const handleSelect = () => {
       setSelectedIndex(api.selectedScrollSnap())
+      setSelectedProfileId(profiles[api.selectedScrollSnap()]?.profileId)
     }
 
     api.on('select', handleSelect)

@@ -16,7 +16,7 @@ export const NoProfileCard = () => {
         className="mb-[12px] mt-[55px]"
       />
       <div className="b4 text-gs-6 text-center mb-[26px] whitespace-pre">{`아직 프로필 카드가 없어요!\n지금 만들어서 꼭 맞는 대출을 추천받아요.`}</div>
-      <Button onClick={() => router.replace('/profile/create')} size="sm" className="mb-[36px]">
+      <Button onClick={() => router.push('/profile/create')} size="sm" className="mb-[36px]">
         프로필 카드 만들기
       </Button>
     </div>

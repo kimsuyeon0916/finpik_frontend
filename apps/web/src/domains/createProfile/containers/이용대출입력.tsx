@@ -34,7 +34,7 @@ export const 이용대출입력 = ({ onNext }: 이용대출입력Props) => {
   const router = useRouter()
 
   const handleClickNoLoanProducts = () => {
-    setValue('loanProductUsageCount', 0)
+    setValue('loanProductUsageCount', '0')
     setValue('totalLoanUsageAmount', '0')
   }
 

@@ -12,7 +12,6 @@ function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxP
       data-slot="checkbox"
       className={cn(
         'border-[1.7px] border-gs-8 data-[state=checked]:border-pm-1 text-gs-2 aspect-square size-[24px] shrink-0 rounded-full outline-none disabled:cursor-not-allowed cursor-pointer',
-
         className,
       )}
       {...props}

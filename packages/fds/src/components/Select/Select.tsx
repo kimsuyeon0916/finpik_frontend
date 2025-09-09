@@ -164,6 +164,7 @@ function SelectScrollDownButton({
 }
 
 export {
+  SelectPrimitive,
   Select,
   SelectContent,
   SelectGroup,
